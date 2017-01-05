@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <% include ./templates/materialize_head.ejs %>
+    </head>
+    <body>
+        <% include ./templates/materialize_body.ejs %>
+        <% for(var i in messages) {%>
+        <div class="flash"><%= messages[i]%></div>
+        <% } %>
+        <form action="signup" method="post">
+            <div>
+                <label>Username : </label>
+                <input type="text" name="username">
+            </div>
+            <div>
+                <label>Email : </label>
+                <input type="text" name="email">
+            </div>
+            <div>
+
+            </div>
+        </form>
+    </body>
+</html>
