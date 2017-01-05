@@ -1,4 +1,4 @@
-var express = require('express'),
+var express = require('express'), //express module
     morgan = require('morgan'), //로거 미들웨어 제공
     compress = require('compression'), //응답 압축 지원
     bodyParser = require('body-parser'), //요청 데이터 처리
@@ -33,10 +33,14 @@ module.exports = function() {
         secret : config.sessionSecret //비밀키 설정
     }));
     
+    //ejs 템플릿
     app.set('views', './app/views');
     app.set('view engine', 'ejs');
 
+    //routing
     require('../app/routes/index.server.route.js')(app);
+    require('../app/routes/users.server.route.js')(app);
+
     app.use(express.static('./static'));
     return app;
 };

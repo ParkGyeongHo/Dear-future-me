@@ -3,6 +3,8 @@ var config = require('./config'),
 
 module.exports = function () {
     var database = mongoose.connect(config.dataBaseURL);
-
+    
+    //mongoose로 정의한 model 적용
+    require('../app/models/user.server.model.js');
     return database;
 };
