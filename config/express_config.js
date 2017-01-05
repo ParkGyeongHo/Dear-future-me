@@ -4,7 +4,8 @@ var express = require('express'), //express module
     bodyParser = require('body-parser'), //요청 데이터 처리
     methodOverride = require('method-override'), //DELETE, PUT 등과 같이 HTTP 동사 지원 기능
     config = require('./config'), //설정구성 js 파일
-    session = require('express-session'); //express 세션 모듈
+    session = require('express-session'), //express 세션 모듈
+    passport = require('passport');
 
 module.exports = function() {
     var app = express();
@@ -36,6 +37,10 @@ module.exports = function() {
     //ejs 템플릿
     app.set('views', './app/views');
     app.set('view engine', 'ejs');
+
+    //passport
+    app.use(passport.initialize()); //passport module을 초기화 시키고 구축해주는 module
+    app.use(passport.session()); //사용자 session을 추적해주는 module
 
     //routing
     require('../app/routes/index.server.route.js')(app);
