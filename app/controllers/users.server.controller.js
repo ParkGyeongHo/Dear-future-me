@@ -17,3 +17,52 @@ exports.create = function (req, res, next) {
         }
     });
 };
+
+//모든 사용자를 찾는 메소드
+exports.list = function(req, res, next){
+    user.find(function (err, users) {
+        if(err){
+            return next(err);
+        }else{
+            res.json(users);
+        }
+    });
+};
+
+exports.read = function (req, res) {
+    res.json(req.user);
+};
+
+//단일 사용자를 찾는 메소드
+exports.userByID = function (req, res, next, id) {
+    user.findOne({
+        _id : id
+    }, function (err, userData) {
+        if(err){
+            return next(err);
+        }else{
+            req.user = userData;
+            next(); //read
+        }
+    })
+};
+
+exports.update = function (req, res, next) {
+    user.findByIdAndUpdate(req.user.id, req.body, function (err, userData) {
+        if(err){
+            return next(err);
+        }else{
+            res.json(userData);
+        }
+    })
+};
+
+exports.delete = function (req, res, next) {
+    req.user.remove(function (err) {
+        if(err){
+            return next(err);
+        }else{
+            res.json(req.user);
+        }
+    })
+};
