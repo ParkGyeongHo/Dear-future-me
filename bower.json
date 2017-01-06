@@ -2,6 +2,7 @@
   "name" : "Mean",
   "version" : "1.8.0",
   "dependencies" : {
-    "angular" : "latest"
+    "angular" : "latest",
+    "angular-route" : "latest"
   }
 }
