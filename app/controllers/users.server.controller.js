@@ -1,6 +1,91 @@
 //User model load
-var user = require('mongoose').model('User');
+var user = require('mongoose').model('User'),
+    passport = require('passport');
 
+/**
+ * 통합된 오류 메세지를 반환하는 비공개 메소드
+ */
+var getErrorMessage = function (err) {
+    var message = '';
+    //err.code = MongoDB error
+    if (err.code){
+        switch(err.code){
+            case 11000:
+            case 11001:
+                message = 'UserID already exists';
+                break;
+            default:
+                message = 'Something went Wrong';
+        }
+    }else{
+        for (var errName in err.error){
+            if(err.errors[errName].message) message = err.errors[errName].message;
+        }
+    }
+    return message;
+};
+
+//로그인
+exports.renderSignin = function (req, res, next) {
+    if(!req.user){
+        res.render('signin', {
+            title : 'Sign-in Form',
+            message : req.flash('error') || req.flash('info')
+        });
+    }else{
+        // root로 이동
+        return res.redirect('/');
+    }
+};
+
+//가입
+exports.renderSignup = function(req, res, next){
+    if(!req.user){
+        res.render('signup', {
+            title : 'Sign-up Form',
+            message : req.flash('error')
+        });
+    }else{
+        return res.redirect('/');
+    }
+};
+
+exports.signup = function (req,res,next) {
+    if(!req.user){
+        //user 객체 생성
+        var userData = new user(req.body);
+        var message = null;
+
+        user.provider = 'local';
+
+        //저장
+        user.save(function (err) {
+            console.log('save');
+            //에러가 생길 경우
+            if(err){
+                message = getErrorMessage(err);
+                //임시로 오류 메세지 저장
+                req.flash('error', message);
+                return res.redirect('/signup');
+            }
+            //사용자 세션 생성
+             req.login(user, function (err) {
+                    if(err) return next(err);
+                    return res.redirect('/');
+             });
+        });
+    }else{
+        //root 로 이동
+        return res.redirect('/');
+    }
+};
+
+//인증된 session을 무효화
+exports.signout = function (req, res) {
+    req.logout();
+    res.redirect('/');
+};
+/*
 exports.create = function (req, res, next) {
     //user 인스턴스(document)생성 - req.body
     var userDocument = new user(req.body);
@@ -65,4 +150,4 @@ exports.delete = function (req, res, next) {
             res.json(req.user);
         }
     })
-};
+};*/
