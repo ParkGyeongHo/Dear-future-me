@@ -9,12 +9,12 @@
     <!-- script include -->
     <% include ./templates/materialize_body.ejs %>
     <% include ./templates/words_body.ejs %>
+    <% include ./templates/user_body.ejs %>
 
     <!-- top nav header include -->
     <% include ./templates/header.ejs %>
 
-    <% if (username) { %>
-        <h2>Hello <%=username %></h2>
+    <% if (user) { %>
         <a href="/signout">Sign out</a>
     <% } else { %>
         <a href="/signup">Signup</a>
@@ -22,6 +22,10 @@
     <% } %>
     <!-- angular js TEST -->
     <br/>
-    <section ng-include="'words/views/words.client.view.html'"></section>
+    <section ng-view></section>
+
+    <script type="text/javascript">
+        window.user = <%- user || 'null' %>
+    </script>
 </body>
 </html>

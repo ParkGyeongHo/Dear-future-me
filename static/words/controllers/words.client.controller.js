@@ -4,7 +4,8 @@
  * $scope 객체 의존성 주입
  * */
 angular.module('words').controller('WordsController', ['$scope',
-    function($scope) {
-        $scope.name = 'Mean application';
-    }
+    'Authentication',
+    function($scope, Authentication) {
+        $scope.name = Authentication.user ? Authentication.user.username : 'MEAN Application'
+     }
 ]);

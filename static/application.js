@@ -2,7 +2,15 @@
 var mainApplicationModuleName = 'mean';
 
 //메인 애플리케이션 모듈 생성
-var mainApplicationModule = angular.module(mainApplicationModuleName, ['words']);
+var mainApplicationModule = angular.module(mainApplicationModuleName,
+    ['ngRoute', 'users', 'words']);
+
+mainApplicationModule.config(['$locationProvider',
+    function ($locationProvider) {
+        $locationProvider.hashPrefix('!');
+}]);
+
+if(window.location.hash === '#_=_') window.location.hash = '#!';
 
 //document.ready이벤트에 함수 결합
 angular.element(document).ready(function () {

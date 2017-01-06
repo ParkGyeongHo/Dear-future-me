@@ -1,4 +1,4 @@
-exports. render = function (req, res) {
+exports.render = function (req, res) {
     //session에 lastVisit의 값이 존재한다면 실행
     if(req.session.lastVisit){
         //session의 lastVisit를 출력
@@ -16,6 +16,6 @@ exports. render = function (req, res) {
     //render로 index에 title 값 전달
     res.render('index', {
         title: '미래의 나에게',
-        username : req.user ? req.user.username : ''
+        user : JSON.stringify(req.user)
     });
 };
