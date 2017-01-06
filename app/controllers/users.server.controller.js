@@ -18,7 +18,7 @@ var getErrorMessage = function (err) {
                 message = 'Something went Wrong';
         }
     }else{
-        for (var errName in err.error){
+        for (var errName in err.errors){
             if(err.errors[errName].message) message = err.errors[errName].message;
         }
     }
@@ -30,7 +30,7 @@ exports.renderSignin = function (req, res, next) {
     if(!req.user){
         res.render('signin', {
             title : 'Sign-in Form',
-            message : req.flash('error') || req.flash('info')
+            messages : req.flash('error') || req.flash('info')
         });
     }else{
         // root로 이동
@@ -43,7 +43,7 @@ exports.renderSignup = function(req, res, next){
     if(!req.user){
         res.render('signup', {
             title : 'Sign-up Form',
-            message : req.flash('error')
+            messages : req.flash('error')
         });
     }else{
         return res.redirect('/');
@@ -56,10 +56,10 @@ exports.signup = function (req,res,next) {
         var userData = new user(req.body);
         var message = null;
 
-        user.provider = 'local';
+        userData.provider = 'local';
 
         //저장
-        user.save(function (err) {
+        userData.save(function (err) {
             console.log('save');
             //에러가 생길 경우
             if(err){
@@ -69,7 +69,7 @@ exports.signup = function (req,res,next) {
                 return res.redirect('/signup');
             }
             //사용자 세션 생성
-             req.login(user, function (err) {
+             req.login(userData, function (err) {
                     if(err) return next(err);
                     return res.redirect('/');
              });

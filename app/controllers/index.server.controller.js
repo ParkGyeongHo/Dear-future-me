@@ -14,5 +14,8 @@ exports. render = function (req, res) {
         + time.getSeconds() + "[Second]";
 
     //render로 index에 title 값 전달
-    res.render('index', {title: '미래의 나에게'});
+    res.render('index', {
+        title: '미래의 나에게',
+        username : req.user ? req.user.username : ''
+    });
 };

@@ -2,8 +2,11 @@
 <html>
     <head>
         <title> <%= title %> </title>
+        <% include ./templates/materialize_head.ejs %>
     </head>
     <body>
+        <% include ./templates/materialize_body.ejs %>
+        <% include ./templates/header.ejs %>
         <% for(var i in messages) { %>
         <div class="flash"><%= messages[i] %></div>
         <% } %>

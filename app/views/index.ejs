@@ -7,15 +7,13 @@
 </head>
 <body>
     <% include ./templates/materialize_body.ejs %>
-    <nav>
-        <div class="nav-wrapper green">
-            <a href="#" class="brand-logo center white-text"><%= title %></a>
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">JavaScript</a></li>
-            </ul>
-        </div>
-    </nav>
+    <% include ./templates/header.ejs %>
+    <% if (username) { %>
+        <h2>Hello <%=username %></h2>
+        <a href="/signout">Sign out</a>
+    <% } else { %>
+        <a href="/signup">Signup</a>
+        <a href="/signin">Signin</a>
+    <% } %>
 </body>
 </html>

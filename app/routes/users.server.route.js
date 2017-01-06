@@ -1,27 +1,29 @@
 //users controller load
-var users = require('../controllers/users.server.controller');
+var users = require('../controllers/users.server.controller'),
+    passport = require('passport');
 
 module.exports = function (app) {
     /**
-     * 'post'방식으로 '/users'에 접근시 users controller create method 실행
-     * 'get'방식으로 '/users'에 접근시 users controller list method 실행
+     * 'post'방식으로 '/signup'에 접근시 users controller signup method 실행
+     * 'get'방식으로 '/signup'에 접근시 users controller renderSignup method 실행
      * */
-    app.route('/users')
-        .post(users.create)
-        .get(users.list);
+    app.route('/signup')
+        .post(users.signup)
+        .get(users.renderSignup);
 
     /**
-     * 'get'방식으로 '/users/:userId'에 접근시 users read method 실행
-     * 'put'방식으로 '/users/:userId'에 접근시 users update method 실행
+     * 'get'방식으로 '/signin'에 접근시 users renderSignin method 실행
+     * 'post'방식으로 '/signin'에 접근시 passport authenticate method 실행
      * */
-    app.route('/users/:userId')
-        .get(users.read)
-        .put(users.update)
-        .delete(users.delete);
+    app.route('/signin')
+        .get(users.renderSignin)
+        .post(passport.authenticate('local', {
+            successRedirect : '/',  //성공적으로 인증한 다음 요청을 전환할 위치를 지정.
+            failureRedirect : '/signin', // 사용자가 인증에 살해한 다음에 요청을 전환할 위치를 지정
+            failureFlash : true // flash 사용 여부
+        }));
 
-    /**
-     * 다른 라우팅 미들웨어를 수행하기 전 userId를 이용하여 userByID를 먼저 실행
-     * */
-    app.param('userId', users.userByID);
+    //
+    app.get('/signout', users.signout);
 };
 

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    crypto = require('crypto'),
     schema = mongoose.Schema;
 
 var userSchema = new schema({
@@ -35,7 +36,7 @@ var userSchema = new schema({
 userSchema.pre('save', function (next) { //데이터 등록하기 전 pre 미들웨어를 먼저 실행
    if(this.password){ //password의 값이 있다면
        //가상 난수 해시 솔트 생성
-       this.salt = new Buffer(cryto.randomBytes(16).toString('base64'),'base64');
+       this.salt = new Buffer(crypto.randomBytes(16).toString('base64'),'base64');
        //암호화 된 패스워드로 치환
        this.password = this.hashPassword(this.password);
    }
@@ -44,7 +45,7 @@ userSchema.pre('save', function (next) { //데이터 등록하기 전 pre 미들
 
 userSchema.methods.hashPassword = function (password) { //암호화 하기 위해 사용
     //cryto 모듈을 활용해 비밀번호를 암호화 시킴
-    return cryto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
+    return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
 };
 
 //문자열 인수를 받아들여 암호화하고 현재 사용자의 비밀번호와 비교

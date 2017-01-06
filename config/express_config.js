@@ -5,7 +5,8 @@ var express = require('express'), //express module
     methodOverride = require('method-override'), //DELETE, PUT 등과 같이 HTTP 동사 지원 기능
     config = require('./config'), //설정구성 js 파일
     session = require('express-session'), //express 세션 모듈
-    passport = require('passport');
+    passport = require('passport'),
+    flash = require('connect-flash');
 
 module.exports = function() {
     var app = express();
@@ -41,6 +42,11 @@ module.exports = function() {
     //passport
     app.use(passport.initialize()); //passport module을 초기화 시키고 구축해주는 module
     app.use(passport.session()); //사용자 session을 추적해주는 module
+
+    //flash
+    app.use(flash());
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     //routing
     require('../app/routes/index.server.route.js')(app);

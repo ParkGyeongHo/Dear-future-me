@@ -10,10 +10,10 @@ module.exports = function () {
     });
 
     passport.deserializeUser(function (id, done) {
-        User.findOne({
+        user.findOne({
             _id : id
-        }, '-password -salt', function (err, user) {
-            done(err, user);
+        }, '-password -salt', function (err, userData) {
+            done(err, userData);
         });
     });
     require('./strategies/local.js')();

@@ -6,25 +6,30 @@
     </head>
     <body>
         <% include ./templates/materialize_body.ejs %>
+        <% include ./templates/header.ejs %>
         <% for(var i in messages) {%>
         <div class="flash"><%= messages[i]%></div>
         <% } %>
         <form action="signup" method="post">
             <div>
-                <label>Username : </label>
-                <input type="text" name="username">
-            </div>
-            <div>
-                <label>Email : </label>
-                <input type="text" name="email">
-            </div>
-            <div>
-                <label>UserID : </label>
+                <label>아이디 : </label>
                 <input type="text" name="userid">
             </div>
             <div>
-                <label>UserID : </label>
+                <label>이름 : </label>
+                <input type="text" name="username">
+            </div>
+            <div>
+                <label>비밀번호 : </label>
                 <input type="text" name="password">
+            </div>
+            <div>
+                <label>이메일 : </label>
+                <input type="text" name="email">
+            </div>
+            <div>
+                <label>생일 : </label>
+                <input type="text" name="birthday">
             </div>
             <div>
                 <input type="submit" value="가입">
