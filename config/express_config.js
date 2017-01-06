@@ -51,6 +51,7 @@ module.exports = function() {
     //routing
     require('../app/routes/index.server.route.js')(app);
     require('../app/routes/users.server.route.js')(app);
+    require('../app/routes/words.server.routes.js')(app);
 
     app.use(express.static('./static'));
     return app;
