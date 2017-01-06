@@ -6,8 +6,13 @@
 
 </head>
 <body>
+    <!-- script include -->
     <% include ./templates/materialize_body.ejs %>
+    <% include ./templates/words_body.ejs %>
+
+    <!-- top nav header include -->
     <% include ./templates/header.ejs %>
+
     <% if (username) { %>
         <h2>Hello <%=username %></h2>
         <a href="/signout">Sign out</a>
@@ -17,9 +22,6 @@
     <% } %>
     <!-- angular js TEST -->
     <br/>
-    <section>
-        <input type="text" id="text1" ng-model="name">
-        <input type="text" id="text2" ng-model="name">
-    </section>
+    <section ng-include="'words/views/words.client.view.html'"></section>
 </body>
 </html>

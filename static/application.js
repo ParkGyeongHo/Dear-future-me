@@ -2,7 +2,7 @@
 var mainApplicationModuleName = 'mean';
 
 //메인 애플리케이션 모듈 생성
-var mainApplicationModule = angular.module(mainApplicationModuleName, []);
+var mainApplicationModule = angular.module(mainApplicationModuleName, ['words']);
 
 //document.ready이벤트에 함수 결합
 angular.element(document).ready(function () {
