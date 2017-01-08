@@ -73,6 +73,4 @@ userSchema.statics.findUniqueUserid = function (userid, suffix, callback) {
     });
 };
 
-
-
 mongoose.model('User', userSchema);

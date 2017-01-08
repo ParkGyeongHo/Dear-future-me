@@ -6,5 +6,5 @@ module.exports = {
      *  not local host URL - mongodb://username:password@hostname:port/database
      * */
     //dataBase(mongo) 주소 설정 - local
-    dataBaseURL : 'mongodb://localhost/database'
+    dataBaseURL : 'mongodb://localhost/dear'
 };

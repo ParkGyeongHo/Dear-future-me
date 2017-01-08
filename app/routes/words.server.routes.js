@@ -3,7 +3,7 @@ var users = require('../controllers/users.server.controller'),
 
 module.exports = function (app) {
     app.route('/api/words')
-        .get(words.list)
+        .get(words.wordsList)
         .post(users.requiresLogin ,words.create);
 
     app.route('/api/words/:wordId')

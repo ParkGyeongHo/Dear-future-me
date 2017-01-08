@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-    words = mongoose.model('Words');
+    words = mongoose.model('Word');
 
 var getErrorMessage = function (err) {
     if(err.errors){
@@ -39,38 +39,38 @@ exports.wordsList = function (req, res) {
      * populate()메소드로 words객체의 creator 속성에 username이라는 사용자 필드를 추가
      */
     words.find().sort('-created').populate('creator', 'username')
-        .exec(function (err, wordsData) {
+        .exec(function (err, word) {
             if(err){
                 return res.status(400).send({
                     message : getErrorMessage(err)
                 });
             }else{
-                res.json(wordsData);
+                res.json(word);
             }
     })
 };
 
 exports.wordsByID = function (req, res, next, id) {
     words.findById(id).populate('creator', 'username')
-        .exec(function (err, wordsData) {
+        .exec(function (err, word) {
             if(err){
                 return next(err);
             }
-            if(!wordsData){
+            if(!word){
                 return (new Error('Failed to load wordsData' + id));
             }
 
-            req.words = wordsData;
+            req.word = word;
             next();
         });
 };
 
 exports.read = function (req, res) {
-    res.json(req.words);
+    res.json(req.word);
 };
 
 exports.update = function (req, res) {
-    var wordsData = req.words;
+    var wordsData = req.word;
 
     wordsData.title = req.body.title;
     wordsData.content = req.body.content;
@@ -87,7 +87,7 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-    var wordsData = req.words;
+    var wordsData = req.word;
 
     wordsData.remove(function (err) {
         if(err){

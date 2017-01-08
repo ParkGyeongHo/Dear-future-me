@@ -3,7 +3,7 @@ var mainApplicationModuleName = 'mean';
 
 //메인 애플리케이션 모듈 생성
 var mainApplicationModule = angular.module(mainApplicationModuleName,
-    ['ngRoute', 'users', 'words']);
+    ['ngResource', 'ngRoute', 'users', 'angularJS', 'words']);
 
 mainApplicationModule.config(['$locationProvider',
     function ($locationProvider) {

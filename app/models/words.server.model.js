@@ -3,11 +3,12 @@ var mongoose = require('mongoose'),
 
 var wordSchema = new schema({
     created : {
-        type : date,
+        type : Date,
         default : Date.now()
     },
     title : {
         type : String,
+        default : '',
         trim : true,
         required : 'Title cannot be blank'
     },
@@ -22,8 +23,9 @@ var wordSchema = new schema({
     },
     visibility : {
         type : Boolean,
-        default : false
+        default : false,
+        trim : true
     }
 });
 
-mongoose.model('Words', wordSchema);
+mongoose.model('Word', wordSchema);

@@ -1,0 +1,17 @@
+<section data-ng-controller="WordsController" data-ng-init="find()">
+    <h1>일기 목록</h1>
+    <ul>
+        <li data-ng-repeat="word in words">
+            <a data-ng-href="#!/words/{{word._id}}" data-ng-bind="word.title"></a>
+            <br>
+            <small data-ng-bind="word.created | date:'medium'"></small>
+            <p data-ng-bind="word.content"></p>
+        </li>
+    </ul>
+    <div data-ng-hide="!words || words.length">
+        No articles yet, why don't you
+        <a href="/#!/words/create">
+            create one
+        </a>?
+    </div>
+</section>

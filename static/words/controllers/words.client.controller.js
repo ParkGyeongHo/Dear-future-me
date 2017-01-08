@@ -1,11 +1,54 @@
-/**
- * words 모듈 인출후
- * controller()메소드를 이용해 WordsController 생성자 함수 생성
- * $scope 객체 의존성 주입
- * */
 angular.module('words').controller('WordsController', ['$scope',
-    'Authentication',
-    function($scope, Authentication) {
-        $scope.name = Authentication.user ? Authentication.user.username : 'MEAN Application'
-     }
+    '$routeParams', '$location', 'Authentication', 'Words',
+    function ($scope, $routeParams, $location, Authentication, Words) {
+        $scope.authentication = Authentication;
+
+        $scope.create = function () {
+            var word = new Words({
+                title : this.title,
+                content : this.content
+            });
+            console.log(word.title +"," +word.content);
+            word.$save(function (response) {
+                console.log('save start!');
+                $location.path('words/' + response._id);
+            }, function (errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
+        };
+
+        $scope.find = function () {
+            $scope.words = Words.query();
+        };
+
+        $scope.findOne = function () {
+            $scope.word = Words.get({
+                wordId : $routeParams.wordId
+            })
+        };
+
+        $scope.update = function () {
+            $scope.word.$update(function () {
+                $location.path('words/' + $scope.word._id);
+            }, function (errorResponse) {
+                $scope.error = errorResponse.data.message;
+            })
+        };
+
+        $scope.delete = function (word) {
+            if(word){
+                word.$remove(function () {
+                    for(var i in $scope.words){
+                        if($scope.words[i] === word){
+                            $scope.words.splice(i, 1);
+                        }
+                    }
+                });
+            }else{
+                $scope.word.$remove(function () {
+                    $location.path('words');
+                });
+            }
+        };
+    }
 ]);
