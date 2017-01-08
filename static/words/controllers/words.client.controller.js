@@ -6,9 +6,10 @@ angular.module('words').controller('WordsController', ['$scope',
         $scope.create = function () {
             var word = new Words({
                 title : this.title,
-                content : this.content
+                content : this.content,
+                visibility : this.visibility
             });
-            console.log(word.title +"," +word.content);
+            console.log(word.title +", " +word.content +", "+ word.visibility);
             word.$save(function (response) {
                 console.log('save start!');
                 $location.path('words/' + response._id);
