@@ -6,6 +6,9 @@ module.exports = function (app) {
         .get(words.wordsList)
         .post(users.requiresLogin ,words.create);
 
+    app.route('/api/mywords')
+        .get(words.wordsList);
+
     app.route('/api/words/:wordId')
         .get(words.read)
         .put(users.requiresLogin, words.hasAuthorization, words.update)

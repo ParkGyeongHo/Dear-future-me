@@ -1,8 +1,8 @@
 <section data-ng-controller="WordsController" data-ng-init="find()">
-        <h4 class="center">전체 일기</h4>
+        <h4 class="center">내 일기</h4>
         <ul class="collection">
-            <li data-ng-repeat="word in words" ng-if="word.visibility == true" class="collection-item avatar">
-                <a data-ng-href="#!/words/{{word._id}}" data-ng-bind="word.title" class="title"></a>
+            <li data-ng-repeat="word in words" ng-if="word.creator._id == authentication.user._id" class="collection-item avatar">
+                <a data-ng-href="#!/words/{{word._id}}" data-ng-bind="word.title"></a>
                 <br>
                 <p data-ng-bind="word.content"></p>
                 <p class="right" data-ng-bind="word.created | date:'medium'"></p>

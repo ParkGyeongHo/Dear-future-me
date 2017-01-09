@@ -10,7 +10,7 @@ var userSchema = new schema({
         required : 'Username is required'
     },
     username : String, //사용자 닉네임
-    password : { //비밃번호
+    password : { //비밀번호
         type : String,
         validate : [
             function (password) {

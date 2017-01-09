@@ -1,11 +1,19 @@
+<script>
+/*    $(document).ready(function(){
+        var title = ['오늘 하루는 어떠셨나요?', '오늘의 교훈은?', '오늘의 명언을 남겨보세요.'];
+        var result = Math.floor(Math.random() * title.length);
+        console.log(title[result]);
+        $("#title").attr('value', title[result]);
+    })*/
+</script>
+
 <section data-ng-controller="WordsController">
-    <h1>일기 쓰기</h1>
+    <h5 class="center">일기 쓰기</h5>
+
     <form data-ng-submit="create()" novalidate>
-        <div>
-            <label for="title">Title</label>
-            <div>
-                <input type="text" data-ng-model="title" id="title" placeholder="Title" required>
-            </div>
+        <div class="input-field">
+            <input data-ng-model="title" id="title" type="text" class="validate" disabled>
+            <label for="title" class="active">질문(제목) - 변경 불가</label>
         </div>
         <div>
             <label for="content">Content</label>

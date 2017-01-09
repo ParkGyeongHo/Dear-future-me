@@ -22,8 +22,10 @@ module.exports = function (app) {
             failureRedirect : '/signin', // 사용자가 인증에 살해한 다음에 요청을 전환할 위치를 지정
             failureFlash : true // flash 사용 여부
         }));
-
-    //
     app.get('/signout', users.signout);
+
+    app.route('/user/:id')
+        .get(users.mypage)
+        .post(users.update, users.mypage);
 };
 

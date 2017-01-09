@@ -101,7 +101,7 @@ exports.delete = function (req, res) {
 };
 
 exports.hasAuthorization = function (req, res, next) {
-    if(req.words.creator.id !== req.user.id){
+    if(req.word.creator.id !== req.user.id){
         return res.status(403).send({
             message : 'User is not authorized'
         });

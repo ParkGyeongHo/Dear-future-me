@@ -1,14 +1,15 @@
 <section ng-controller="angularController">
-    <div data-ng-show="!authentication.user">
+    <div data-ng-show="!authentication.user" class="center">
         <a href="/signup">Signup</a>
         <a href="/signin">Signin</a>
     </div>
     <div data-ng-show="authentication.user">
-        <h1>Hello <span data-ng-bind="authentication.user.username"></span></h1>
-        <a href="/signout">Signout</a>
+        <h1 class="center">Hello <span data-ng-bind="authentication.user.username"></span></h1>
+        <div class="center"><a href="/signout">로그아웃</a> |
+            <a href="/user/{{authentication.user.userid}}">내정보</a></div>
         <ul>
-            <li><a href="/#!/words">List Words</a></li>
-            <li><a href="/#!/words/create">Create Word</a></li>
+            <li class="center"><a href="/#!/words">공개 일기</a></li>
+            <!--<li class="center"><a href="/#!/dashboard">대시보드</a></li>-->
         </ul>
     </div>
 </section>
